@@ -22,4 +22,9 @@ This project deals with the triangulation of data obtained from STL files. The k
 -  **Visualization**:
    - The program will visualize the triangulated points using OpenGL.
 
-   
+## Output ScreenShot-
+1. Cube
+   ![Screenshot (76)](https://github.com/ombothe08/QT_OpenGL_Window/assets/158052399/45a30546-5535-43a2-a53e-305830814951)
+
+2. Sphere
+   ![Screenshot (77)](https://github.com/ombothe08/QT_OpenGL_Window/assets/158052399/4630fd8f-1ba2-49e9-b4be-da9aa9691c16)
