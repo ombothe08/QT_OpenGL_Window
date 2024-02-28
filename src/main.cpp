@@ -34,7 +34,6 @@ private:
 int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
-
     QSurfaceFormat format;
     format.setSamples(16);
 
@@ -42,9 +41,7 @@ int main(int argc, char** argv)
     window.setFormat(format);
     window.resize(640, 480);
     window.show();
-
     window.setAnimating(true);
-
     return app.exec();
 }
 //! [2]
@@ -92,22 +89,23 @@ void TriangleWindow::render()
 {
     const qreal retinaScale = devicePixelRatio();
     glViewport(0, 0, width() * retinaScale, height() * retinaScale);
-
+    //to solid the object
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     m_program->bind();
 
     QMatrix4x4 matrix;
     matrix.perspective(60.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-    matrix.translate(0, 0, -4);
+    matrix.translate(0, 0, -120);
+
     
     matrix.rotate(100.0f * m_frame / screen()->refreshRate(), 0, 1, 0);
 
     m_program->setUniformValue(m_matrixUniform, matrix);
         
     Triangulation triangulation;
-    Reader r;
-    r.readFile(triangulation);
+    Reader reader;
+    reader.readFile(triangulation);
 
     vector<Point3D>& points = triangulation.uniquePoints();
     vector<Point3D>& Normal = triangulation.uniqueNormal();
@@ -143,28 +141,14 @@ void TriangleWindow::render()
     }
     size_t sizeOfVertices = totalCoordinates * sizeof(GLfloat);
 
-    /* GLfloat* colors = new GLfloat[totalCoordinates];
+     GLfloat* colors = new GLfloat[totalCoordinates];
     
     for (int i = 0; i < totalCoordinates; i+=3) {
         colors[i] = 1.0f;
-        colors[i + 1] = 0.0f;
+        colors[i + 1] = 1.0f;
         colors[i + 2] = 0.0f;
-    }*/
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    std::uniform_real_distribution<double> dis(0.0, 1.0);
-
-    GLfloat* colors = new GLfloat[totalCoordinates];
-
-    for (int i = 0; i < totalCoordinates; ++i)
-
-    {
-
-        colors[i] = dis(gen);
-
     }
-        
+       
     glVertexAttribPointer(m_posAttr, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, colors);
 

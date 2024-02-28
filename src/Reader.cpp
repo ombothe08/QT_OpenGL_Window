@@ -107,10 +107,6 @@ void Reader::readFile(Triangulation& triangualtion)
                 numberOfVertex = 1;
             }
         }
-
-
-        // copied all data of tri into triangles
-
         // copied all data of different vector into uniquePoints
         cout << "file close successfully" << endl;
         readFromFile.close();
